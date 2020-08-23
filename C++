@@ -1,0 +1,91 @@
+#include <iostream>
+#include <string>
+#include <cstdlib>
+#include <ctime>
+
+using namespace std;
+
+int main() {
+
+//Setting variables
+  char guess;
+  int incorrectGuesses = 0;
+  int guessLimit = 6;
+  bool outOfGuesses = false;
+  int correctGuesses = 0;
+//Creating an array of possible colours
+//Adding a random generator to choose colour
+  srand(time(0));
+
+    const string wordList[6] = { "red",
+        "green", "blue", "yellow", "pink", "orange" };
+
+    string colour = wordList[rand() % 6];
+
+//Initial instructions for game
+cout << "------------------------Let's play hangman!------------------------\n \n-----------You need to guess the colour I am thinking of-----------\n";
+
+//Actual guessing of letters
+while (!outOfGuesses && colour.length() != correctGuesses){
+  cout << "\nGuess a letter: ";
+  cin >> guess;
+  //If character guessed is in the word
+  if (guess == colour[0] || guess == colour[1] || guess == colour[2] || guess == colour[3] || guess == colour[4] || guess == colour[5] || guess == colour[6]){
+        
+    cout << "\nCorrect guess!\n";
+    correctGuesses++;}
+  else {
+    cout << "\nIncorrect guess!\n";
+    incorrectGuesses++;
+
+    //Creating diagram
+    if (incorrectGuesses >= 6){
+      cout << "\n______\n";
+      cout << "|    |\n";
+      cout << "|    0\n";
+      cout << "|   -|-\n";
+      cout << "|   /|\n";
+      cout << "|_______\n";}
+    else if (incorrectGuesses >= 5){
+      cout << "\n______\n";
+      cout << "|    |\n";
+      cout << "|    0\n";
+      cout << "|   -|-\n";
+      cout << "|    \n";
+      cout << "|_______\n";}
+    else if (incorrectGuesses >= 4){
+      cout << "\n______\n";
+      cout << "|    |\n";
+      cout << "|    0\n";
+      cout << "|\n";
+      cout << "|\n";
+      cout << "|_______\n";}
+    else if (incorrectGuesses >= 3){
+      cout << "\n______\n";
+      cout << "|\n";
+      cout << "|\n";
+      cout << "|\n";
+      cout << "|\n";
+      cout << "|_______\n";}
+    else if (incorrectGuesses >= 2){
+      cout << "\n|\n";
+      cout << "|\n";
+      cout << "|\n";
+      cout << "|\n";
+      cout << "|_______\n";}
+    else if (incorrectGuesses >= 1){
+      cout << "\n_______\n";}
+
+    //Reached guess limit
+    if (incorrectGuesses >= guessLimit){
+    outOfGuesses = true;}
+      }
+
+  }
+  //If all chacacters in the word have been guessed
+  if (correctGuesses == colour.length()){
+    cout << "Congratulations! You have completed the word. The colour was " << colour << ".";}
+  //If guess limit has been reached
+  else{
+  cout << "You have lost the game! The colour was " << colour << ". Better luck next time!";}
+}
